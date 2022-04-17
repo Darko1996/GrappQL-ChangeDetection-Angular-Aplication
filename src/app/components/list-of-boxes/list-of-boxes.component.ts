@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Box } from '../../models/Box';
 import { Router } from '@angular/router';
 import { ListOfBoxesService } from '../../services/list-of-boxes.service';
@@ -11,11 +11,11 @@ import { SharedLoaderService } from '../../services/shared-loader.service';
   selector: 'app-list-of-boxes',
   templateUrl: './list-of-boxes.component.html',
   styleUrls: ['./list-of-boxes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [slideIn],
 })
-export class ListOfBoxesComponent implements OnInit, OnDestroy {
-  onDestroy = new Subject();
-  allBoxes: Box[];
+export class ListOfBoxesComponent implements OnInit {
+  allBoxes$: Observable<Box[]>;
 
   constructor(
     public router: Router,
@@ -30,26 +30,10 @@ export class ListOfBoxesComponent implements OnInit, OnDestroy {
 
   executeLoad(): void {
     this.loader.showFullLoader();
-    this.listOfBoxesService
-      .getAllBoxes()
-      .pipe(takeUntil(this.onDestroy))
-      .subscribe(
-        (data: Box[]) => {
-          this.allBoxes = data;
-          this.loader.dismissLoader();
-        },
-        (err) => {
-          this.toastr.error(err);
-        }
-      );
+    this.allBoxes$ = this.listOfBoxesService.getAllBoxes();
   }
 
   viewDetailBox(box: Box): void {
     this.router.navigate(['/detail-box', box.id]);
-  }
-
-  ngOnDestroy(): void {
-    this.onDestroy.next(true);
-    this.onDestroy.complete();
   }
 }

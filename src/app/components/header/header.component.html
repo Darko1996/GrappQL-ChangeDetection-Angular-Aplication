@@ -15,7 +15,7 @@
 
       <div class="d-flex">
         <li class="nav-item ml-3">
-          <a class="nav-link" (click)="submitLoginForm()" *ngIf="!userData?.id">Login</a>
+          <a class="nav-link" (click)="loginClick()" *ngIf="!userData?.id">Login</a>
         </li>
         <li *ngIf="!!userData.id" class="nav-item d-flex ml-3">
           <a class="nav-link border-end">{{userData?.name}}</a>

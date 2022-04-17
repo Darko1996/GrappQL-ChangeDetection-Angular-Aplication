@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { finalize, Subject, takeUntil } from 'rxjs';
+import { debounceTime, finalize, Subject, takeUntil } from 'rxjs';
 import { DetailBoxService } from '../../services/detail-box.service';
 import { BoxDetails } from '../../models/Box';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +10,7 @@ import { slideIn } from '../../animations';
   selector: 'app-detail-box',
   templateUrl: './detail-box.component.html',
   styleUrls: ['./detail-box.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [slideIn],
 })
 export class DetailBoxComponent implements OnInit, OnDestroy {
@@ -23,36 +24,34 @@ export class DetailBoxComponent implements OnInit, OnDestroy {
   constructor(
     public activatedRoute: ActivatedRoute,
     private detailBoxService: DetailBoxService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.boxId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.executeLoad();
   }
 
-  executeLoad(): void {
+  openBox(): void {
+    this.isLoading = true;
+    this.isClicked = true;
     this.detailBoxService
       .openSingleBox(this.boxId, this.amount)
       .pipe(
+        debounceTime(5000),
         takeUntil(this.onDestroy),
-        finalize(() => (this.isLoading = true))
+        finalize(() => (this.isLoading = false))
       )
       .subscribe(
         (data: BoxDetails) => {
           this.boxDetails = data;
           console.log('boxDetails', this.boxDetails);
+          this.changeDetectorRef.detectChanges();
         },
         (err) => {
           this.toastr.error(err);
         }
       );
-  }
-
-  clickedEvent(): void {
-    if (!this.isLoading) {
-      this.isClicked = !this.isClicked;
-    }
   }
 
   ngOnDestroy(): void {

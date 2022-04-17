@@ -12,9 +12,17 @@ import { ToastrModule } from 'ngx-toastr';
 import { StoreModule } from '@ngrx/store';
 import * as fromApp from './ngrx/app.reducer';
 import { SharedLoaderComponent } from './components/shared/shared-loader/shared-loader.component';
+import { DebounceClickDirective } from './directives/debounce-click.directive';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, ListOfBoxesComponent, DetailBoxComponent, SharedLoaderComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    ListOfBoxesComponent,
+    DetailBoxComponent,
+    SharedLoaderComponent,
+    DebounceClickDirective,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

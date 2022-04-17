@@ -1,10 +1,10 @@
 <div class="section bg-warning" [@slideIn]>
-  <div class="trigger" (click)="clickedEvent()" [ngClass]="isClicked ? 'clicked' : '' ">
+  <div class="trigger" debounceClick (debounceClick)="openBox()" [ngClass]="isClicked ? 'clicked' : '' ">
     <div class="box">OPEN THE BOX</div>
 
     <div *ngIf="isLoading" class="spinner-border m-auto" role="status"></div>
 
-    <div class="boxDetails" *ngIf="!isLoading">
+    <div class="boxDetails" *ngIf="boxDetails.id">
       <p class='text-uppercase oveflow-dots'>You have WON</p>
       <p class='oveflow-dots'>{{boxDetails?.itemVariant?.name}}</p>
       <p class='oveflow-dots'>{{boxDetails?.itemVariant?.value}}</p>

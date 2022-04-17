@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import gql from 'graphql-tag';
-import { BehaviorSubject, Subscription, take } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { User, UserResponse } from '../models/User';
 import { Apollo } from 'apollo-angular';
 
@@ -8,11 +8,9 @@ import { Apollo } from 'apollo-angular';
   providedIn: 'root',
 })
 export class AuthService {
-  authUser = new BehaviorSubject<User>(new User());
-
   constructor(private apollo: Apollo) {}
 
-  login(): Subscription {
+  login(): Observable<User> {
     return this.apollo
       .watchQuery<UserResponse>({
         query: gql`
@@ -29,9 +27,10 @@ export class AuthService {
           }
         `,
       })
-      .valueChanges.pipe(take(1))
-      .subscribe((resultArray) => {
-        this.authUser.next(resultArray.data.currentUser);
-      });
+      .valueChanges.pipe(
+        map((resultArray) => {
+          return resultArray.data.currentUser;
+        })
+      );
   }
 }

@@ -8,7 +8,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let box of allBoxes" (click)="viewDetailBox(box)">
+    <tr *ngFor="let box of allBoxes$ | async" (click)="viewDetailBox(box)">
       <td>{{box?.name}}</td>
       <td>{{box?.iconUrl}}</td>
       <td>{{box?.cost}}</td>

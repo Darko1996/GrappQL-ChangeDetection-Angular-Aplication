@@ -3,12 +3,13 @@ import { map, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Box, BoxResponse } from '../models/Box';
+import { SharedLoaderService } from './shared-loader.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ListOfBoxesService {
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo, private loader: SharedLoaderService) {}
 
   getAllBoxes(): Observable<Box[]> {
     return this.apollo
@@ -30,6 +31,8 @@ export class ListOfBoxesService {
       })
       .valueChanges.pipe(
         map((resultArray) => {
+          this.loader.dismissLoader();
+
           return resultArray.data.boxes.edges.map((result: any) => result.node);
         })
       );
