@@ -1,0 +1,68 @@
+@import "../../../../scss/colors";
+
+.loader-container {
+  width: 100%;
+  position: absolute;
+  z-index: 49999999;
+  top:0;
+  left:0;
+}
+
+.full-container {
+  @extend .loader-container;
+  bottom: 0;
+  background: $color-ink;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  padding: 25px 0;
+
+  .close-loader {
+    align-self: flex-end;
+    padding-right: 25px;
+  }
+
+  .loader {
+    width: 60px;
+    height: 60px;
+  }
+
+  .subtext-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
+
+  .main-text-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+
+  .title {
+    color: $color-snow;
+    font-size: 1.5em;
+  }
+
+  .separator {
+    width: 50px;
+    margin: 1em;
+    height: 1px;
+    background: $color-snow;
+  }
+
+  .main-text {
+    color: $color-snow;
+    font-size: 1.1em;
+    text-align: center;
+  }
+
+  .sub-text {
+    color: $color-snow;
+    font-size: 1em;
+  }
+}

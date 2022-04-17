@@ -1,0 +1,61 @@
+@import "../../../scss/colors";
+
+.section {
+  padding: 20px;
+  -webkit-font-smoothing: antialiased;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .trigger {
+    display: flex;
+    width: 200px;
+    height: 200px;
+    border: 20px solid $color-shadow;
+    background: $color-primary;
+    position: relative;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .box, .boxDetails {
+    background: $color-shadow;
+    height: 100%;
+    width: 100%;
+    transition: 500ms ease-in-out;
+    box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    color: $color-primary;
+  }
+
+  .boxDetails {
+    position: absolute;
+    color: $color-shadow;
+    background: $color-primary;
+    z-index: 1;
+    top: 0;
+  }
+
+  .trigger.clicked .box {
+    left: 200px;
+    box-shadow: 0 8px 15px -5px rgba(0, 0, 0, 0.7);
+  }
+}
+
+
+
+

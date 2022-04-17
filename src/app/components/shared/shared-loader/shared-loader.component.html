@@ -1,0 +1,15 @@
+<div *ngIf="showFull" class="full-container">
+  <div class="close-loader clickable">
+    <p class="sub-text" (click)="closeLoader()">Close</p>
+  </div>
+  <div class="subtext-container">
+    <p class="main-text">{{mainText}}</p>
+    <h2 class="title">In progress</h2>
+  </div>
+  <div class="spinner-border m-auto loader text-light" role="status"></div>
+
+  <div class="subtext-container">
+    <div class="separator"></div>
+    <p class="sub-text">Please wait</p>
+  </div>
+</div>

@@ -31,8 +31,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "./node_modules/bootstrap/scss/bootstrap.scss"
+              "src/scss/styles.scss",
+              "./node_modules/bootstrap/scss/bootstrap.scss",
+              "./node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
@@ -103,6 +104,19 @@
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }

@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+  <span class="logo"></span>
+  <a class="navbar-brand ml-3" routerLink="">Box App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse  justify-content-end" id="navbarNavDropdown">
+    <ul class="navbar-nav d-flex w-100">
+      <div class="d-flex w-100">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="list-of-boxes">List of Boxes</a>
+        </li>
+      </div>
+
+      <div class="d-flex">
+        <li class="nav-item ml-3">
+          <a class="nav-link" (click)="submitLoginForm()" *ngIf="!userData?.id">Login</a>
+        </li>
+        <li *ngIf="!!userData.id" class="nav-item d-flex ml-3">
+          <a class="nav-link border-end">{{userData?.name}}</a>
+          <a class="nav-link" href=''>{{balance | number: '1.0-0'}}</a>
+        </li>
+      </div>
+
+    </ul>
+  </div>
+</nav>
