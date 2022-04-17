@@ -45,7 +45,7 @@ export class ListOfBoxesComponent implements OnInit, OnDestroy {
   }
 
   viewDetailBox(box: Box): void {
-    this.router.navigate(['/detail-box', box.id], { queryParams: { id: box.id } });
+    this.router.navigate(['/detail-box', box.id]);
   }
 
   ngOnDestroy(): void {

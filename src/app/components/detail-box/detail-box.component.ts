@@ -16,7 +16,7 @@ export class DetailBoxComponent implements OnInit, OnDestroy {
   onDestroy = new Subject();
   isClicked: boolean;
   amount = 1;
-  boxId: string;
+  boxId: any;
   boxDetails = new BoxDetails();
   isLoading: boolean;
 
@@ -27,10 +27,7 @@ export class DetailBoxComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.pipe(takeUntil(this.onDestroy)).subscribe((params) => {
-      this.boxId = params['id'];
-    });
-
+    this.boxId = this.activatedRoute.snapshot.paramMap.get('id');
     this.executeLoad();
   }
 

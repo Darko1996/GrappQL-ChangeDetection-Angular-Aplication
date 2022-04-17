@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { User } from '../../models/User';
 import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.executeLoad();
   }
 
-  subscribeWallet() {
+  subscribeWallet(): void {
     this.queryRef.subscribeToMore({
       document: gql`
         subscription {
