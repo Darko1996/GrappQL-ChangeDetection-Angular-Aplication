@@ -9,3 +9,7 @@ export interface Wallets {
   amount: number;
   currency: string;
 }
+
+export interface UserResponse {
+  currentUser: User;
+}

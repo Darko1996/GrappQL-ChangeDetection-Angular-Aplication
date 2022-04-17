@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { Box } from '../models/Box';
+import { Box, BoxResponse } from '../models/Box';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class ListOfBoxesService {
 
   getAllBoxes(): Observable<Box[]> {
     return this.apollo
-      .watchQuery<any>({
+      .watchQuery<BoxResponse>({
         query: gql`
           query {
             boxes(free: true, openable: true, purchasable: true) {

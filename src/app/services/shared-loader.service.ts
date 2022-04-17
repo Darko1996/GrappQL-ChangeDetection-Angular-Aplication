@@ -8,7 +8,6 @@ import { Store } from '@ngrx/store';
 })
 export class SharedLoaderService {
   static readonly FULL = 'full';
-  static readonly BAR = 'bar';
 
   constructor(private store: Store<fromApp.State>) {}
 
@@ -17,14 +16,6 @@ export class SharedLoaderService {
       new Loader.StartLoader({
         type: SharedLoaderService.FULL,
         message: message,
-      })
-    );
-  }
-
-  showBarLoader(): void {
-    this.store.dispatch(
-      new Loader.StartLoader({
-        type: SharedLoaderService.BAR,
       })
     );
   }

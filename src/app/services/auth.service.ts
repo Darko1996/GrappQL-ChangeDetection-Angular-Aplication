@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { BehaviorSubject, Subscription, take } from 'rxjs';
-import { User } from '../models/User';
+import { User, UserResponse } from '../models/User';
+import { Apollo } from 'apollo-angular';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class AuthService {
 
   login(): Subscription {
     return this.apollo
-      .watchQuery<any>({
+      .watchQuery<UserResponse>({
         query: gql`
           query {
             currentUser {

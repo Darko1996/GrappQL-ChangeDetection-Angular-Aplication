@@ -1,4 +1,4 @@
-import {Action} from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
 export const START_LOADER = '[Loader] Start Loader';
 export const STOP_LOADER = '[Loader] Stop Loader';
@@ -8,9 +8,10 @@ export class StartLoader implements Action {
 
   constructor(
     public payload: {
-      type: 'full' | 'bar';
+      type: 'full';
       message?: string;
-  }) {}
+    }
+  ) {}
 }
 
 export class StopLoader implements Action {

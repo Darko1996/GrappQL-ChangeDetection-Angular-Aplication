@@ -6,24 +6,6 @@ import { Apollo, QueryRef } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { ToastrService } from 'ngx-toastr';
 
-const dummy = gql`
-  query {
-    fakequery
-  }
-`;
-
-const sub = gql`
-  subscription {
-    updateWallet {
-      wallet {
-        id
-        amount
-        name
-      }
-    }
-  }
-`;
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -36,21 +18,37 @@ export class HeaderComponent implements OnInit, OnDestroy {
   queryRef: QueryRef<any>;
 
   constructor(public authService: AuthService, private apollo: Apollo, private toastr: ToastrService) {
+    // Don't need data to initially load, in order to invoke watchQuery needed to fake the data
     this.queryRef = this.apollo.watchQuery({
-      query: dummy,
+      query: gql`
+        query {
+          fakequery
+        }
+      `,
     });
   }
 
   ngOnInit(): void {
-    this.subscribeProduct();
+    this.subscribeWallet();
     this.executeLoad();
   }
 
-  subscribeProduct() {
+  subscribeWallet() {
     this.queryRef.subscribeToMore({
-      document: sub,
+      document: gql`
+        subscription {
+          updateWallet {
+            wallet {
+              id
+              amount
+              name
+            }
+          }
+        }
+      `,
       updateQuery: (prev, { subscriptionData }) => {
         console.log(subscriptionData);
+        this.balance = subscriptionData.data.wallet.amount;
       },
     });
   }
@@ -63,8 +61,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.userData?.wallets.forEach((e) => {
             this.balance += e.amount;
           });
+          console.log('this.userData', this.userData);
         }
-        console.log('this.userData', this.userData);
       },
       (err) => {
         this.toastr.error(err);

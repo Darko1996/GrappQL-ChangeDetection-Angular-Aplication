@@ -5,9 +5,9 @@
     <div *ngIf="isLoading" class="spinner-border m-auto" role="status"></div>
 
     <div class="boxDetails" *ngIf="!isLoading">
-      <p>You have WON</p>
-      <p>{{boxDetails?.itemVariant?.name}}</p>
-      <p>{{boxDetails?.itemVariant?.value}}</p>
+      <p class='text-uppercase oveflow-dots'>You have WON</p>
+      <p class='oveflow-dots'>{{boxDetails?.itemVariant?.name}}</p>
+      <p class='oveflow-dots'>{{boxDetails?.itemVariant?.value}}</p>
     </div>
   </div>
 </div>

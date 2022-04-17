@@ -34,7 +34,7 @@ export class ListOfBoxesComponent implements OnInit, OnDestroy {
       .getAllBoxes()
       .pipe(takeUntil(this.onDestroy))
       .subscribe(
-        (data) => {
+        (data: Box[]) => {
           this.allBoxes = data;
           this.loader.dismissLoader();
         },

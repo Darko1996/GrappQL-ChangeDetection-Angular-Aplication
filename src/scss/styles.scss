@@ -8,3 +8,10 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.oveflow-dots {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 150px;
+  white-space: nowrap;
+}
