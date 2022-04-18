@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy))
       .subscribe(
         (data: User) => {
-          if (data.id) {
+          if (data?.id) {
             this.userData = data;
             console.log('userData', this.userData);
 

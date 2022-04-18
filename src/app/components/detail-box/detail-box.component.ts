@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { ActivatedRoute } from '@angular/router';
 import { debounceTime, finalize, Subject, takeUntil } from 'rxjs';
 import { DetailBoxService } from '../../services/detail-box.service';
-import { BoxDetails } from '../../models/Box';
+import { BoxDetails, BoxResponse } from '../../models/Box';
 import { ToastrService } from 'ngx-toastr';
 import { slideIn } from '../../animations';
 
@@ -39,13 +39,14 @@ export class DetailBoxComponent implements OnInit, OnDestroy {
       .openSingleBox(this.boxId, this.amount)
       .pipe(
         debounceTime(5000),
-        takeUntil(this.onDestroy),
-        finalize(() => (this.isLoading = false))
+        takeUntil(this.onDestroy)
+        // finalize(() => (this.isLoading = false))
       )
       .subscribe(
-        (data: BoxDetails) => {
-          this.boxDetails = data;
+        (data) => {
+          this.boxDetails = data.openBox.boxOpenings[0];
           console.log('boxDetails', this.boxDetails);
+          this.isLoading = false;
           this.changeDetectorRef.detectChanges();
         },
         (err) => {
