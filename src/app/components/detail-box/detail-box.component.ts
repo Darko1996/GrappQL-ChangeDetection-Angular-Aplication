@@ -32,6 +32,7 @@ export class DetailBoxComponent implements OnInit, OnDestroy {
     this.boxId = this.activatedRoute.snapshot.paramMap.get('id');
   }
 
+  // Can't test this properly because of limit openBox calls per 24h...
   openBox(): void {
     this.isLoading = true;
     this.isClicked = true;
